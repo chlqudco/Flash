@@ -92,8 +92,10 @@ internal fun AdMobBanner(modifier: Modifier = Modifier) {
         }
 
         DisposableEffect(adView) {
+            val viewToDispose = adView
+
             onDispose {
-                adView?.destroy()
+                viewToDispose?.destroy()
             }
         }
 

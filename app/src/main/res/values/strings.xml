@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">Flash</string>
+    <string name="app_name">손전등</string>
+    <string name="flashlight_on_title">불이 켜졌어요</string>
+    <string name="flashlight_on_description">주변을 밝히고 있어요</string>
+    <string name="flashlight_off_title">손전등이 꺼져 있어요</string>
+    <string name="flashlight_off_description">가운데 버튼을 눌러 불을 켜세요</string>
+    <string name="flashlight_unavailable_title">지금은 사용할 수 없어요</string>
+    <string name="flashlight_unavailable_description">다른 앱에서 카메라를 사용 중인지 확인해 주세요</string>
+    <string name="flashlight_missing_title">플래시를 찾을 수 없어요</string>
+    <string name="flashlight_missing_description">이 기기는 카메라 플래시를 지원하지 않아요</string>
+    <string name="flashlight_permission_title">카메라 권한이 필요해요</string>
+    <string name="flashlight_permission_description">손전등을 켜려면 카메라 권한을 허용해 주세요</string>
+    <string name="flashlight_error_title">플래시를 켤 수 없어요</string>
+    <string name="flashlight_error_description">잠시 후 버튼을 다시 눌러 주세요</string>
+    <string name="flashlight_on_status">켜짐</string>
+    <string name="flashlight_off_status">꺼짐</string>
+    <string name="flashlight_turn_on">손전등 켜기</string>
+    <string name="flashlight_turn_off">손전등 끄기</string>
+    <string name="open_app_settings">앱 설정 열기</string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_banner_id" translatable="false">ca-app-pub-3940256099942544/9214589741</string>
 </resources>

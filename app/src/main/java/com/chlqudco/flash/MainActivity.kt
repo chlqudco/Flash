@@ -20,14 +20,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
+import com.chlqudco.flash.ads.AdConsentManager
 import com.chlqudco.flash.ui.FlashlightScreen
 import com.chlqudco.flash.ui.theme.FlashTheme
 
 class MainActivity : ComponentActivity() {
     private val cameraManager by lazy { getSystemService(CameraManager::class.java) }
+    private lateinit var adConsentManager: AdConsentManager
     private var torchCameraId: String? = null
     private var callbackRegistered = false
     private var permissionRequested = false
+    private var canRequestAds by mutableStateOf(false)
+    private var privacyOptionsRequired by mutableStateOf(false)
     private var uiState by mutableStateOf(FlashlightUiState())
 
     private val cameraPermissionLauncher =
@@ -64,16 +68,22 @@ class MainActivity : ComponentActivity() {
             statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
             navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT)
         )
+        adConsentManager = AdConsentManager(applicationContext)
+        refreshAdConsentState()
         resolveTorchCamera()
         setContent {
             FlashTheme {
                 FlashlightScreen(
                     state = uiState,
                     onToggle = ::toggleTorch,
-                    onOpenSettings = ::openAppSettings
+                    onOpenSettings = ::openAppSettings,
+                    canRequestAds = canRequestAds,
+                    showPrivacyOptions = privacyOptionsRequired,
+                    onOpenPrivacyOptions = ::openPrivacyOptions,
                 )
             }
         }
+        gatherAdConsent()
     }
 
     override fun onStart() {
@@ -211,6 +221,35 @@ class MainActivity : ComponentActivity() {
                 Uri.fromParts("package", packageName, null)
             )
         )
+    }
+
+    private fun gatherAdConsent() {
+        adConsentManager.gatherConsent(this) { formError ->
+            if (formError != null) {
+                Log.w(
+                    TAG,
+                    "Unable to gather ad consent: ${formError.errorCode}: ${formError.message}"
+                )
+            }
+            refreshAdConsentState()
+        }
+    }
+
+    private fun openPrivacyOptions() {
+        adConsentManager.showPrivacyOptionsForm(this) { formError ->
+            if (formError != null) {
+                Log.w(
+                    TAG,
+                    "Unable to show privacy options: ${formError.errorCode}: ${formError.message}"
+                )
+            }
+            refreshAdConsentState()
+        }
+    }
+
+    private fun refreshAdConsentState() {
+        canRequestAds = adConsentManager.canRequestAds
+        privacyOptionsRequired = adConsentManager.isPrivacyOptionsRequired
     }
 
     private companion object {

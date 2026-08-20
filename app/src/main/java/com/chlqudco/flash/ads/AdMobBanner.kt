@@ -39,7 +39,12 @@ import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 @Composable
-internal fun AdMobBanner(modifier: Modifier = Modifier) {
+internal fun AdMobBanner(
+    canRequestAds: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    if (!canRequestAds) return
+
     val context = LocalContext.current
     val activity = remember(context) { context.findActivity() }
     val isPreview = LocalInspectionMode.current

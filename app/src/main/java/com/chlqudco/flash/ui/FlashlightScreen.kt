@@ -63,6 +63,9 @@ internal fun FlashlightScreen(
     state: FlashlightUiState,
     onToggle: () -> Unit,
     onOpenSettings: () -> Unit,
+    canRequestAds: Boolean,
+    showPrivacyOptions: Boolean,
+    onOpenPrivacyOptions: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val isOn = state.status == FlashlightStatus.ON
@@ -156,7 +159,20 @@ internal fun FlashlightScreen(
                     }
                 }
             }
-            AdMobBanner(modifier = Modifier.fillMaxWidth())
+            if (showPrivacyOptions) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    TextButton(onClick = onOpenPrivacyOptions) {
+                        Text(text = stringResource(R.string.privacy_options))
+                    }
+                }
+            }
+            AdMobBanner(
+                canRequestAds = canRequestAds,
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 }
@@ -332,7 +348,10 @@ private fun FlashlightScreenPreview() {
         FlashlightScreen(
             state = FlashlightUiState(status = FlashlightStatus.OFF),
             onToggle = {},
-            onOpenSettings = {}
+            onOpenSettings = {},
+            canRequestAds = false,
+            showPrivacyOptions = true,
+            onOpenPrivacyOptions = {},
         )
     }
 }

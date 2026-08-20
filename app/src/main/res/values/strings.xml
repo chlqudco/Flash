@@ -17,6 +17,7 @@
     <string name="flashlight_turn_on">손전등 켜기</string>
     <string name="flashlight_turn_off">손전등 끄기</string>
     <string name="open_app_settings">앱 설정 열기</string>
+    <string name="privacy_options">개인정보 옵션</string>
     <string name="admob_app_id" translatable="false">ca-app-pub-1578492211079983~7448886776</string>
     <string name="admob_banner_id" translatable="false">ca-app-pub-1578492211079983/3805104903</string>
 </resources>
